@@ -3,6 +3,7 @@ package com.example.controller;
 import com.example.dto.Student;
 import com.example.service.IStudentService;
 import com.example.servicefactory.StudentServiceFactory;
+import com.example.utils.HibernateUtil;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,8 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/controller/*")
+@WebServlet(urlPatterns = "/controller/*", loadOnStartup = 1)
 public class MyServlet extends HttpServlet {
+    static {
+        HibernateUtil.startup();
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

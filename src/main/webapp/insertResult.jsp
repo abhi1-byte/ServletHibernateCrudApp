@@ -6,7 +6,7 @@
 </head>
 <body bgcolor="aqua">
 <c:choose>
-    <c:when test="${status ge 1}">
+    <c:when test="${status eq 1}">
         <h1 style='color:green; text-align:center;'>Inserted Successfully...</h1>
     </c:when>
     <c:otherwise>

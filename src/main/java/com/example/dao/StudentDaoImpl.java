@@ -67,7 +67,7 @@ public class StudentDaoImpl implements IStudentDao {
                 status = 1;
             } else {
                 t.rollback();
-                status = 0;
+                status = -1;
             }
         }
         return status;
@@ -86,6 +86,8 @@ public class StudentDaoImpl implements IStudentDao {
                 if (s != null) {
                     session.delete(s);
                     flag = true;
+                } else{
+                    return status;
                 }
             }
         } catch (HibernateException he) {
@@ -98,6 +100,7 @@ public class StudentDaoImpl implements IStudentDao {
                 status = 1;
             } else {
                 transaction.rollback();
+                status =  -1;
             }
         }
         return status;
