@@ -1,13 +1,21 @@
 package com.example.dto;
 
-import java.io.Serializable;
+import javax.persistence.*;
 
-public class Student implements Serializable {
-    private static final long serialVersionUID =1L;
+@Entity
+@Table(name="students")
+public class Student {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer sid;
     private String sname;
-    private Integer sage;
     private String saddress;
+    private Integer sage;
+
+    public Student() {
+        System.out.println("Hibernate uses Zero argument constructor internally");
+    }
 
     public Integer getSid() {
         return sid;
@@ -25,6 +33,14 @@ public class Student implements Serializable {
         this.sname = sname;
     }
 
+    public String getSaddress() {
+        return saddress;
+    }
+
+    public void setSaddress(String saddress) {
+        this.saddress = saddress;
+    }
+
     public Integer getSage() {
         return sage;
     }
@@ -33,11 +49,9 @@ public class Student implements Serializable {
         this.sage = sage;
     }
 
-    public String getSaddress() {
-        return saddress;
+    @Override
+    public String toString() {
+        return "Student [sid=" + sid + ", sname=" + sname + ", saddress=" + saddress + ", sage=" + sage + "]";
     }
 
-    public void setSaddress(String saddress) {
-        this.saddress = saddress;
-    }
 }

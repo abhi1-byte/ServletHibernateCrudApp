@@ -3,8 +3,11 @@ package com.example.dao;
 import com.example.dto.Student;
 
 public interface IStudentDao {
-    public Integer addStudent(Student s);
-    public Student searchStudent(Integer sid);
-    public Integer updateStudent(Student s);
-    public Integer deleteStudent(Integer sid);
+    public Integer save(Student s);
+
+    public Student getById(Integer sid);
+
+    public Integer updateById(Student s);
+
+    public Integer deleteById(Integer sid);
 }

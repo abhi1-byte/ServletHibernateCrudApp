@@ -13,25 +13,25 @@ public class StudentServiceImpl implements IStudentService {
     }
 
     @Override
-    public Integer addStudent(Student s) {
-        return studentDao.addStudent(s);
+    public Integer save(Student s) {
+        return studentDao.save(s);
     }
 
     @Override
-    public Student searchStudent(Integer sid) {
-        Student std = studentDao.searchStudent(sid);
+    public Student getById(Integer sid) {
+        Student std = studentDao.getById(sid);
         return std;
     }
 
     @Override
-    public Integer updateStudent(Student s) {
-        Integer status = studentDao.updateStudent(s);
+    public Integer updateById(Student s) {
+        Integer status = studentDao.updateById(s);
         return status;
     }
 
     @Override
-    public Integer deleteStudent(Integer sid) {
-        Integer i =studentDao.deleteStudent(sid);
+    public Integer deleteById(Integer sid) {
+        Integer i =studentDao.deleteById(sid);
         return i;
     }
 }

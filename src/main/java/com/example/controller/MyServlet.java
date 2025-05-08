@@ -3,6 +3,7 @@ package com.example.controller;
 import com.example.dto.Student;
 import com.example.service.IStudentService;
 import com.example.servicefactory.StudentServiceFactory;
+import com.example.utils.HibernateUtil;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,8 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/controller/*")
+@WebServlet(urlPatterns = "/controller/*", loadOnStartup = 1)
 public class MyServlet extends HttpServlet {
+    static {
+        HibernateUtil.startup();
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -29,7 +33,7 @@ public class MyServlet extends HttpServlet {
             s.setSage(Integer.parseInt(request.getParameter("sage")));
             s.setSname(request.getParameter("sname"));
             s.setSaddress(request.getParameter("saddress"));
-            int status = studentService.addStudent(s);
+            int status = studentService.save(s);
             request.setAttribute("status", status);
             RequestDispatcher rd = null;
             rd = request.getRequestDispatcher("/insertResult.jsp");
@@ -37,7 +41,7 @@ public class MyServlet extends HttpServlet {
         }
         if (request.getRequestURI().endsWith("searchform")) {
             Integer sid = (Integer.parseInt(request.getParameter("sid")));
-            Student student = studentService.searchStudent(sid);
+            Student student = studentService.getById(sid);
             request.setAttribute("student", student);
             RequestDispatcher rd = null;
             rd = request.getRequestDispatcher("/display.jsp");
@@ -45,7 +49,7 @@ public class MyServlet extends HttpServlet {
         }
         if (request.getRequestURI().endsWith("deleteform")) {
             Integer sid = (Integer.parseInt(request.getParameter("sid")));
-            int status = studentService.deleteStudent(sid);
+            int status = studentService.deleteById(sid);
             request.setAttribute("status", status);
             RequestDispatcher rd = null;
             rd = request.getRequestDispatcher("/deleteResult.jsp");
@@ -53,7 +57,7 @@ public class MyServlet extends HttpServlet {
         }
         if (request.getRequestURI().endsWith("editform")) {
             String sid = request.getParameter("sid");
-            Student student = studentService.searchStudent(Integer.parseInt(sid));
+            Student student = studentService.getById(Integer.parseInt(sid));
             request.setAttribute("student", student);
             RequestDispatcher rd = null;
             rd = request.getRequestDispatcher("/editform.jsp");
@@ -66,7 +70,7 @@ public class MyServlet extends HttpServlet {
             s.setSage(Integer.parseInt(request.getParameter("sage")));
             s.setSname(request.getParameter("sname"));
             s.setSaddress(request.getParameter("saddress"));
-            int status = studentService.updateStudent(s);
+            int status = studentService.updateById(s);
             request.setAttribute("status", status);
             RequestDispatcher rd = null;
             rd = request.getRequestDispatcher("/updateResult.jsp");
