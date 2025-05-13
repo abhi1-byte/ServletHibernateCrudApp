@@ -39,11 +39,7 @@ public class StudentDaoImpl implements IStudentDao {
 
     @Override
     public Student getById(Integer sid) {
-        Student s = session.get(Student.class, sid);
-        if (s != null) {
-            return s;
-        } else
-            return null;
+        return session.get(Student.class, sid);
     }
 
     @Override
